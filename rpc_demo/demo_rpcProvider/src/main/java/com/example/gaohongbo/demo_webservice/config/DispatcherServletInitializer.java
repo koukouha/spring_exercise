@@ -2,10 +2,12 @@ package com.example.gaohongbo.demo_webservice.config;
 
 import com.example.gaohongbo.demo_webservice.service.IHessianService;
 import com.example.gaohongbo.demo_webservice.service.IHttpInvokerService;
+import com.example.gaohongbo.demo_webservice.service.IRmiService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.remoting.caucho.HessianServiceExporter;
 import org.springframework.remoting.httpinvoker.HttpInvokerServiceExporter;
+import org.springframework.remoting.rmi.RmiServiceExporter;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.HandlerMapping;
@@ -48,6 +50,15 @@ public class DispatcherServletInitializer implements WebApplicationInitializer {
 		return expoter;
 	}
 
+	// Config exporter for RMI
+	@Bean
+	public RmiServiceExporter rmiServiceExporter(IRmiService service) {
+		RmiServiceExporter expoter = new RmiServiceExporter();
+		expoter.setService(service);
+		expoter.setServiceName("RmiService");
+		expoter.setServiceInterface(IRmiService.class);
+		return expoter;
+	}
 
 	// Add handler mapping for service
 	@Bean
@@ -60,4 +71,5 @@ public class DispatcherServletInitializer implements WebApplicationInitializer {
 		mapping.setOrder(1);
 		return mapping;
 	}
+
 }
