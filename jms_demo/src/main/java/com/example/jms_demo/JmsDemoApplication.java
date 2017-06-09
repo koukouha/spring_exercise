@@ -8,5 +8,6 @@ public class JmsDemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(JmsDemoApplication.class, args);
+
 	}
 }
